@@ -21,13 +21,13 @@ namespace PierresTreats.Controllers
       return View(model);
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public ActionResult Create()
     {
       return View();
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public ActionResult Create(Flavor flavor)
     {
@@ -52,7 +52,7 @@ namespace PierresTreats.Controllers
       return View(thisFlavor);
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public ActionResult AddTreat(int id)
     {
       Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
@@ -62,7 +62,7 @@ namespace PierresTreats.Controllers
       return View(thisFlavor);
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [HttpPost]
     public ActionResult AddTreat(Flavor flavor, int treatId)
     {
@@ -77,7 +77,7 @@ namespace PierresTreats.Controllers
       return RedirectToAction("Details", new { id = flavor.FlavorId });
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [HttpGet("/flavors/{id}/edit")]
     public ActionResult Edit(int id)
     {
@@ -88,7 +88,7 @@ namespace PierresTreats.Controllers
       return View(thisFlavor);
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [HttpPost("/flavors/{id}/edit")]
     public ActionResult Edit(Flavor flavor)
     {
@@ -97,7 +97,7 @@ namespace PierresTreats.Controllers
       return RedirectToAction("Details", new { id = flavor.FlavorId });
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public ActionResult DeleteJoin(int id)
     {
       TreatFlavor joinEntity = _db.TreatFlavors.FirstOrDefault(entity => entity.TreatFlavorId == id);
@@ -106,7 +106,7 @@ namespace PierresTreats.Controllers
       return View(joinEntity);
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [HttpPost, ActionName("DeleteJoin")]
     public ActionResult DeleteJoinConfirm(int id)
     {
@@ -116,7 +116,7 @@ namespace PierresTreats.Controllers
       return RedirectToAction("Details", new { id = joinEntity.FlavorId });
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [HttpGet("/flavors/{id}/delete")]
     public ActionResult Delete(int id)
     {
@@ -124,7 +124,7 @@ namespace PierresTreats.Controllers
       return View(thisFlavor);
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [HttpPost("/flavors/{id}/delete")]
     public ActionResult DeleteConfirm(int id)
     {

@@ -20,7 +20,7 @@ else
     }
   </ul>
 }
-@if (User.Identity.IsAuthenticated)
+@if (User.IsInRole("admin"))
 {
   <p>@Html.ActionLink("Add a new flavor!", "Create", "Flavors")</p>
 }

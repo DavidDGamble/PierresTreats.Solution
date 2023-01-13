@@ -24,6 +24,7 @@ namespace PierresTreats
                       );
 
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<PierresTreatsContext>()
                 .AddDefaultTokenProviders();
 

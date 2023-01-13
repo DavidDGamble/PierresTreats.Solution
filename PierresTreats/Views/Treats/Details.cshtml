@@ -5,7 +5,7 @@
 @using PierresTreats.Models
 @model PierresTreats.Models.Treat
 
-@if (User.Identity.IsAuthenticated)
+@if (User.IsInRole("admin"))
 {
   <div class="row">
     <div class="col-6" style="text-align: center;">
@@ -36,7 +36,7 @@ else
   </ul>
 }
 
-@if (User.Identity.IsAuthenticated)
+@if (User.IsInRole("admin"))
 {
   <p>@Html.ActionLink("Add a flavor to treat!", "AddFlavor", new { id = Model.TreatId })</p>
 }

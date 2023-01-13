@@ -25,7 +25,7 @@
         }
       </ul>
     }
-    @if (User.Identity.IsAuthenticated)
+    @if (User.IsInRole("admin"))
     {
      <p>@Html.ActionLink("Add a new treat!", "Create", "Treats")</p>
     }
@@ -47,10 +47,15 @@
         }
       </ul>
     }
-    @if (User.Identity.IsAuthenticated)
+    @if (User.IsInRole("admin"))
     {
       <p>@Html.ActionLink("Add a new flavor!", "Create", "Flavors")</p>
     }
   </div>
 </div>
 <p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>
+
+@if (User.IsInRole("admin"))
+{
+  <p>@Html.ActionLink("Create or manage roles", "Index", "Role")</p>
+}
