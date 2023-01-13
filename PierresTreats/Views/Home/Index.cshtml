@@ -21,7 +21,7 @@
       <ul>
         @foreach (Treat treat in ViewBag.treats)
         {
-          <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new {id = treat.TreatId})</li>
+          <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new {id = treat.TreatId}) | $@treat.Price.ToString("#.##")</li>
         }
       </ul>
     }

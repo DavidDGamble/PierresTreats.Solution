@@ -11,8 +11,8 @@ using PierresTreats.Models;
 namespace PierresTreats.Migrations
 {
     [DbContext(typeof(PierresTreatsContext))]
-    [Migration("20230113211109_AddRoles")]
-    partial class AddRoles
+    [Migration("20230113232239_AddInitial")]
+    partial class AddInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -228,6 +228,33 @@ namespace PierresTreats.Migrations
                     b.ToTable("Flavors");
                 });
 
+            modelBuilder.Entity("PierresTreats.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TreatId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserNameId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("TreatId");
+
+                    b.HasIndex("UserNameId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("PierresTreats.Models.Treat", b =>
                 {
                     b.Property<int>("TreatId")
@@ -237,6 +264,9 @@ namespace PierresTreats.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("TreatId");
 
@@ -315,6 +345,23 @@ namespace PierresTreats.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PierresTreats.Models.Order", b =>
+                {
+                    b.HasOne("PierresTreats.Models.Treat", "Treat")
+                        .WithMany("Orders")
+                        .HasForeignKey("TreatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PierresTreats.Models.ApplicationUser", "UserName")
+                        .WithMany()
+                        .HasForeignKey("UserNameId");
+
+                    b.Navigation("Treat");
+
+                    b.Navigation("UserName");
+                });
+
             modelBuilder.Entity("PierresTreats.Models.TreatFlavor", b =>
                 {
                     b.HasOne("PierresTreats.Models.Flavor", "Flavor")
@@ -342,6 +389,8 @@ namespace PierresTreats.Migrations
             modelBuilder.Entity("PierresTreats.Models.Treat", b =>
                 {
                     b.Navigation("JoinEntities");
+
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

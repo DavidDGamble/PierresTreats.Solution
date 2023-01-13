@@ -12,5 +12,7 @@
 {
   @Html.TextBoxFor(model => model.Name, new { placeholder = "Name", style = "text-align: center;"})
   <br><br>
+  @Html.TextBoxFor(model => model.Price, new { placeholder = "Price", style = "text-align: center;"})
+  <br><br>
   <input type="submit" value="Add a new treat!" class="btn btn-success"/>
 }

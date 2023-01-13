@@ -16,7 +16,7 @@ else
   <ul>
   @foreach (Treat treat in Model)
     {
-      <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new {id = treat.TreatId})</li>
+      <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new {id = treat.TreatId}) | $@treat.Price.ToString("#.##")</li>
     }
   </ul>
 }

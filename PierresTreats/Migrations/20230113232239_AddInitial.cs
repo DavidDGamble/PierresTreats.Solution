@@ -6,10 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PierresTreats.Migrations
 {
-    public partial class AddApplicationUser : Migration
+    public partial class AddInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -61,6 +64,37 @@ namespace PierresTreats.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Flavors",
+                columns: table => new
+                {
+                    FlavorId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Flavors", x => x.FlavorId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Treats",
+                columns: table => new
+                {
+                    TreatId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Price = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Treats", x => x.TreatId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -191,6 +225,62 @@ namespace PierresTreats.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    TreatId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserNameId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_UserNameId",
+                        column: x => x.UserNameId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Orders_Treats_TreatId",
+                        column: x => x.TreatId,
+                        principalTable: "Treats",
+                        principalColumn: "TreatId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TreatFlavors",
+                columns: table => new
+                {
+                    TreatFlavorId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TreatId = table.Column<int>(type: "int", nullable: false),
+                    FlavorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TreatFlavors", x => x.TreatFlavorId);
+                    table.ForeignKey(
+                        name: "FK_TreatFlavors_Flavors_FlavorId",
+                        column: x => x.FlavorId,
+                        principalTable: "Flavors",
+                        principalColumn: "FlavorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TreatFlavors_Treats_TreatId",
+                        column: x => x.TreatId,
+                        principalTable: "Treats",
+                        principalColumn: "TreatId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -227,6 +317,26 @@ namespace PierresTreats.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_TreatId",
+                table: "Orders",
+                column: "TreatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserNameId",
+                table: "Orders",
+                column: "UserNameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TreatFlavors_FlavorId",
+                table: "TreatFlavors",
+                column: "FlavorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TreatFlavors_TreatId",
+                table: "TreatFlavors",
+                column: "TreatId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -247,10 +357,22 @@ namespace PierresTreats.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "TreatFlavors");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Flavors");
+
+            migrationBuilder.DropTable(
+                name: "Treats");
         }
     }
 }
