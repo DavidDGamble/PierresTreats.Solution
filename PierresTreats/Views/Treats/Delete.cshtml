@@ -1,0 +1,12 @@
+@{
+  Layout = "_Layout";
+}
+
+@model PierresTreats.Models.Treat
+
+<h2>Are you sure you want to delete @Model.Name?</h2>
+
+@using (Html.BeginForm())
+{
+  <input type="submit" value="Delete" class="btn btn-danger"/>
+}

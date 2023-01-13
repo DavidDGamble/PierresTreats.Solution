@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+
+@model PierresTreats.Models.Flavor
+
+@if (@ViewBag.treats.Count == 0)
+{
+  <h3>There are currently no treats!</h3>
+  <p>@Html.ActionLink("Add a new treat!", "Create", "Treats")</p>
+}
+else
+{
+  <h2>Add a treat to this flavor: @Html.DisplayFor(model => model.Name)</h2>
+
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.FlavorId)
+
+    @Html.Label("Select treat")
+    @Html.DropDownList("TreatId")
+
+    <input type="submit" value="Save" />
+  }
+}

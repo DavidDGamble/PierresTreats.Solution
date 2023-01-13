@@ -1,3 +1,49 @@
 @{
   Layout = "_Layout";
 }
+
+@using PierresTreats.Models
+
+<h3 style="text-align: center;">Welcome to Pierres!</h3>
+<hr>
+
+<div class="row">
+
+  <div class="col-6">
+    <h2>Treats</h2>
+
+    @if (@ViewBag.treats.Count == 0)
+    {
+      <h4>No treats have been added yet!</h4>
+    }
+    else
+    {
+      <ul>
+        @foreach (Treat treat in ViewBag.treats)
+        {
+          <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new {id = treat.TreatId})</li>
+        }
+      </ul>
+    }
+    <p>@Html.ActionLink("Add a new treat!", "Create", "Treats")</p>
+  </div>
+
+  <div class="col-6">
+    <h2>Flavors</h2>
+
+    @if (@ViewBag.flavors.Count == 0)
+    {
+      <h4>No flavors have been added yet!</h4>
+    }
+    else
+    {
+      <ul>
+        @foreach (Flavor flavor in ViewBag.flavors)
+        {
+          <li>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new {id = flavor.FlavorId})</li>
+        }
+      </ul>
+    }
+    <p>@Html.ActionLink("Add a new flavor!", "Create", "Flavors")</p>
+  </div>
+</div>

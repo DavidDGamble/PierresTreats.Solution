@@ -1,0 +1,13 @@
+@{
+  Layout = "_Layout";
+}
+
+@model PierresTreats.Models.TreatFlavor
+
+<h2>Are you sure you want to remove this treat?</h2>
+
+<h4>@ViewBag.treatName</h4>
+@using (Html.BeginForm())
+{
+  <input type="submit" value="Delete" class="btn btn-danger"/>
+}

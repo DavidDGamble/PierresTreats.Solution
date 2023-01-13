@@ -1,0 +1,38 @@
+@{
+  Layout = "_Layout";
+}
+
+@using PierresTreats.Models
+@model PierresTreats.Models.Flavor
+
+<h2 style="text-align: center;">Edit: @Model.Name</h2>
+<hr>
+
+<div class="row">
+  <div class="col-6">
+    @using (Html.BeginForm())
+    {
+      @Html.HiddenFor(model => model.FlavorId)
+      @Html.TextBoxFor(model => model.Name, new { placeholder = "Name", style = "text-align: center;"})
+      <br><br>
+      <input type="submit" value="Edit flavor!" class="btn btn-warning" />
+    }
+  </div>
+  <div class="col-6">
+    @if (@Model.JoinEntities.Count == 0)
+    {
+      <p>This flavor does not have any treats yet!</p>
+    }
+    else
+    {
+      <h4>This flavor has the following treats:</h4>
+      <h3><strong>(Click treat to remove)</strong></h3>
+      <ul>
+        @foreach (TreatFlavor join in Model.JoinEntities)
+        {
+          <li>@Html.ActionLink($"{@join.Treat.Name}", "DeleteJoin", new { id = @join.TreatFlavorId }, new { style = "color: red;" })</li>
+        }
+      </ul>
+    }
+  </div>
+</div>
