@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using PierresTreats.Models;
@@ -20,11 +21,13 @@ namespace PierresTreats.Controllers
       return View(model);
     }
 
+    [Authorize]
     public ActionResult Create()
     {
       return View();
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult Create(Treat treat)
     {
@@ -49,15 +52,17 @@ namespace PierresTreats.Controllers
       return View(thisTreat);
     }
 
+    [Authorize]
     public ActionResult AddFlavor(int id)
     {
       Treat thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
       List<Flavor> flavors = _db.Flavors.ToList();
       ViewBag.flavors = flavors;
-      ViewBag.flavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
       return View(thisTreat);
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult AddFlavor(Treat treat, int flavorId)
     {
@@ -72,6 +77,7 @@ namespace PierresTreats.Controllers
       return RedirectToAction("Details", new { id = treat.TreatId });
     }
 
+    [Authorize]
     [HttpGet("/treats/{id}/edit")]
     public ActionResult Edit(int id)
     {
@@ -82,6 +88,7 @@ namespace PierresTreats.Controllers
       return View(thisTreat);
     }
 
+    [Authorize]
     [HttpPost("/treats/{id}/edit")]
     public ActionResult Edit(Treat treat)
     {
@@ -90,6 +97,7 @@ namespace PierresTreats.Controllers
       return RedirectToAction("Details", new { id = treat.TreatId });
     }
 
+    [Authorize]
     public ActionResult DeleteJoin(int id)
     {
       TreatFlavor joinEntity = _db.TreatFlavors.FirstOrDefault(entity => entity.TreatFlavorId == id);
@@ -98,6 +106,7 @@ namespace PierresTreats.Controllers
       return View(joinEntity);
     }
 
+    [Authorize]
     [HttpPost, ActionName("DeleteJoin")]
     public ActionResult DeleteJoinConfirm(int id)
     {
@@ -107,6 +116,7 @@ namespace PierresTreats.Controllers
       return RedirectToAction("Details", new { id = joinEntity.TreatId });
     }
 
+    [Authorize]
     [HttpGet("/treats/{id}/delete")]
     public ActionResult Delete(int id)
     {
@@ -114,6 +124,7 @@ namespace PierresTreats.Controllers
       return View(thisTreat);
     }
 
+    [Authorize]
     [HttpPost("/treats/{id}/delete")]
     public ActionResult DeleteConfirm(int id)
     {

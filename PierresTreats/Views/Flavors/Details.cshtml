@@ -5,26 +5,29 @@
 @using PierresTreats.Models
 @model PierresTreats.Models.Flavor
 
-<div class="row">
-  <div class="col-6" style="text-align: center;">
-    <h2 style="text-align: center;">@Model.Name</h2>
+@if (User.Identity.IsAuthenticated)
+{
+  <div class="row">
+    <div class="col-6" style="text-align: center;">
+      <h2 style="text-align: center;">@Model.Name</h2>
+    </div>
+    <div class="col-3" style="text-align: center;">
+      <a href="/flavors/@Model.FlavorId/edit" class="btn btn-warning w-50">Edit</a>
+    </div>
+    <div class="col-3" style="text-align: center;">
+      <a href="/flavors/@Model.FlavorId/delete" class="btn btn-danger w-50">Delete</a>
+    </div>
   </div>
-  <div class="col-3" style="text-align: center;">
-    <a href="/flavors/@Model.FlavorId/edit" class="btn btn-warning w-50">Edit</a>
-  </div>
-  <div class="col-3" style="text-align: center;">
-    <a href="/flavors/@Model.FlavorId/delete" class="btn btn-danger w-50">Delete</a>
-  </div>
-</div>
-<hr>
+  <hr>
+}
 
 @if (@Model.JoinEntities.Count == 0)
 {
-  <p>This flavor does not have any treats yet!</p>
+  <p>@Model.Name does not have any treats yet!</p>
 }
 else
 {
-  <h4>This flavor has the following treats:</h4>
+  <h4>@Model.Name has the following treats:</h4>
   <ul>
     @foreach (TreatFlavor join in Model.JoinEntities)
     {
@@ -33,4 +36,7 @@ else
   </ul>
 }
 
-<p>@Html.ActionLink("Add a treat to flavor!", "AddTreat", new { id = Model.FlavorId })</p>
+@if (User.Identity.IsAuthenticated)
+{
+  <p>@Html.ActionLink("Add a treat to flavor!", "AddTreat", new { id = Model.FlavorId })</p>
+}

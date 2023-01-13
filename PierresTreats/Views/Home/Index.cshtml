@@ -25,7 +25,10 @@
         }
       </ul>
     }
-    <p>@Html.ActionLink("Add a new treat!", "Create", "Treats")</p>
+    @if (User.Identity.IsAuthenticated)
+    {
+     <p>@Html.ActionLink("Add a new treat!", "Create", "Treats")</p>
+    }
   </div>
 
   <div class="col-6">
@@ -44,7 +47,10 @@
         }
       </ul>
     }
-    <p>@Html.ActionLink("Add a new flavor!", "Create", "Flavors")</p>
+    @if (User.Identity.IsAuthenticated)
+    {
+      <p>@Html.ActionLink("Add a new flavor!", "Create", "Flavors")</p>
+    }
   </div>
 </div>
 <p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>

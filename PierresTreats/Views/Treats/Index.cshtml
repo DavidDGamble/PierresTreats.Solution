@@ -20,4 +20,7 @@ else
     }
   </ul>
 }
-<p>@Html.ActionLink("Add a new treat!", "Create", "Treats")</p>
+@if (User.Identity.IsAuthenticated)
+{
+  <p>@Html.ActionLink("Add a new treat!", "Create", "Treats")</p>
+}
