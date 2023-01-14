@@ -8,7 +8,7 @@
   font-size: 300%;
 }
 
-div#footer {
+div#header {
   position:fixed;
   top:0px;
   left:0px;
@@ -16,16 +16,4 @@ div#footer {
   color:#CCC;
   background:#333;
   padding:8px;
-}
-
-#nav {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height: 40px;
-  width: 100%;
-  color: #CCC;
-  background: #b9cdd3;
-  padding: 5px;
-  margin: auto;
 }

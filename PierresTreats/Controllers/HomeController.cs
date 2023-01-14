@@ -21,6 +21,5 @@ namespace PierresTreats.Controllers
         ViewBag.flavors = flavors;
         return View();
       }
-
     }
 }

@@ -1,43 +1,8 @@
-# Setup for template
-#### Thanks [Robert Bryan](https://github.com/robbryandev) for the rad name replacement code! :pray:
-* _clone CSharpTemplate.Solution repository to desktop_
-* _run npm commands below in CSharpTemplate.Solution replacing [ProjectName] with the project name_
-```
-npm i
-```
-```
-node ./index.js --name [ProjectName] --dest ~/Desktop
-```
-
-* _run dotnet commands below in ProjectName and ProjectName.Tests_
-```
-dotnet restore
-```
-
-* _create appsettings.json file in ProjectName folder if using a MySql database_
-```
-{
-  "ConnectionStrings": {
-      "DefaultConnection": "Server=localhost;Port=3306;database=[database_name];uid=[USERNAME];pwd=[PASSWORD];"
-  }
-}
-```
-
-* _to run project in developement mode_
-```
-dotnet watch run
-```
-* _to run project in production mode_
-```
-dotnet watch run --launch-profile "production"
-```
-
-
-# _{Application Name}_
+# _Pierre's Treats_
 
 #### By: _**David Gamble**_
 
-#### _{Brief description of application}_
+#### _Epicodus project to demonstate many to many relationship with login and authentication using Identity._
 
 ## Technologies Used
 
@@ -50,19 +15,40 @@ dotnet watch run --launch-profile "production"
 
 ## Description
 
-_{This is a detailed description of your application. Give as much detail as needed to explain what the application does as well as any other information you want users or other developers to have.}_
+_This is a web application that that allows a user to create roles for users and allows users to create accounts and log in.  Users can view Pierre's Treats and Flavors as well as their relationships to each other.  The admin can create, edit, delete, and join Treats and Flavors._
 
 ## Setup/Installation Requirements
 
-* _Clone the repository to your desktop from: {Enter the repository url here}_
-* _Run [$ dotnet run] in the {ProjectName} repository in {ProjectName.Solutions}_
-
-_{Leave nothing to chance! You want it to be easy for potential users, employers and collaborators to run your app. Do I need to run a server? How should I set up my databases? Is there other code this application depends on? We recommend deleting the project from your desktop, re-cloning the project from GitHub, and writing down all the steps necessary to get the project working again.}_
+* _Clone the repository to your desktop from: https://github.com/DavidDGamble/PierresTreats.Solution.git_
+* _Create appsettings.json file in PierresTreats folder_
+```
+{
+  "ConnectionStrings": {
+      "DefaultConnection": "Server=localhost;Port=3306;database=[database_name];uid=[USERNAME];pwd=[PASSWORD];"
+  }
+}
+```
+* _run dotnet commands below in PierresTreats_
+```
+dotnet restore
+```
+```
+dotnet ef database update
+```
+```
+dotnet watch run
+```
+* _From the Home Page click the Create or manage account link and register an admin and a user_
+* _Enter https://localhost:5001/role in the address bar and use the Create a Role link to create and "admin" and a "user"_
+* _Use the Update link to add your admin to the admin role and your user to the suer role_
+* _Navigate back to the Home Page and log in_
+* _The admin will have access to create, edit, delete, and join while all other users have view authorization_
+* _If in the roles branch, the user had access to place and view orders. WIP_
 
 ## Known Bugs
 
-* _Any known issues_
-* _should go here_
+* _No known issues_
+* _roles branch WIP_
 
 ## License
 
